@@ -11,12 +11,15 @@ class MyNotifier extends AsyncNotifier<int> {
   }
 }
 
-final provider2 = AsyncNotifierProvider<MyNotifier2, int>(MyNotifier2.new);
+final provider2 = AsyncNotifierProvider<MyNotifier2, bool>(MyNotifier2.new);
 
-class MyNotifier2 extends AsyncNotifier<int> {
+class MyNotifier2 extends AsyncNotifier<bool> {
   @override
-  FutureOr<int> build() async {
+  FutureOr<bool> build() async {
     AsyncValue<int> x = ref.watch(provider);
-    return 1;
+    if (!x.isLoading) {
+      return true;
+    }
+    return false;
   }
 }

@@ -37,13 +37,13 @@ class MyHomePage extends ConsumerStatefulWidget {
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    AsyncValue<int> x = ref.watch(provider2);
+    AsyncValue<bool> x = ref.watch(provider2);
+    if (x.asData?.value == false) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: const Center(child: Text("hi")),
+    return const Scaffold(
+      body: Center(child: Text("Success")),
     );
   }
 }
