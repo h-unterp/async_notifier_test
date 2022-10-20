@@ -10,10 +10,11 @@ class MyNotifier extends AsyncNotifier<String> {
     return "BUILD DONE";
   }
 
-  FutureOr<String> doSomething() async {
-    state = const AsyncLoading();
-    await Future.delayed(const Duration(seconds: 1));
-    update((state) => "DONE DOING SOMETHING");
-    return "EM";
+  doSomething() async {
+    update((data) async {
+      state = const AsyncLoading();
+      await Future.delayed(const Duration(seconds: 1));
+      return "DONE DOING SOMETHING";
+    });
   }
 }
