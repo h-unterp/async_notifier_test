@@ -1,25 +1,19 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final provider = AsyncNotifierProvider<MyNotifier, int>(MyNotifier.new);
+final provider = AsyncNotifierProvider<MyNotifier, String>(MyNotifier.new);
 
-class MyNotifier extends AsyncNotifier<int> {
+class MyNotifier extends AsyncNotifier<String> {
   @override
-  FutureOr<int> build() async {
+  FutureOr<String> build() async {
     await Future.delayed(const Duration(seconds: 1));
-    return 1;
+    return "DONE";
   }
-}
 
-final provider2 = AsyncNotifierProvider<MyNotifier2, bool>(MyNotifier2.new);
-
-class MyNotifier2 extends AsyncNotifier<bool> {
-  @override
-  FutureOr<bool> build() async {
-    AsyncValue<int> x = ref.watch(provider);
-    if (!x.isLoading) {
-      return true;
-    }
-    return false;
+  FutureOr<String> doSomething() async {
+    state = const AsyncLoading();
+    await Future.delayed(const Duration(seconds: 1));
+    update((state) => "DONE DOING SOMETHING");
+    return "EM";
   }
 }

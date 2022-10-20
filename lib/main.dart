@@ -37,13 +37,21 @@ class MyHomePage extends ConsumerStatefulWidget {
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    AsyncValue<bool> x = ref.watch(provider2);
-    if (x.asData?.value == false) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-
-    return const Scaffold(
-      body: Center(child: Text("Success")),
+    return Scaffold(
+      body: ref.watch(provider).when(
+          data: (String s) => Center(
+                  child: Text(
+                s,
+                style: const TextStyle(fontSize: 30),
+              )),
+          error: (error, stack) => Text(error.toString()),
+          loading: () => const Center(child: CircularProgressIndicator())),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ref.read(provider.notifier).doSomething();
+        },
+        child: const Icon(Icons.play_circle),
+      ),
     );
   }
 }
