@@ -7,7 +7,7 @@ class MyNotifier extends AsyncNotifier<String> {
   @override
   FutureOr<String> build() async {
     await Future.delayed(const Duration(seconds: 1));
-    return "DONE";
+    return "BUILD DONE";
   }
 
   FutureOr<String> doSomething() async {
